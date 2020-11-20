@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
+from .models import Profile, Flashcard
 
 
 class UserRegisterForm(UserCreationForm):
@@ -36,3 +36,8 @@ class FlashcardCreateForm(forms.ModelForm):
     c = forms.CharField(label='Opcja C', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje D'}))
     d = forms.CharField(label='Opcja D', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje C'}))
     correct_answer = forms.CharField(label='Poprawna odpowiedz', widget=forms.TextInput(attrs={'placeholder': 'Podaj odpowiedz'}))
+
+    class Meta:
+        model = Flashcard
+        fields = ['visibility', 'question', 'is_abcd', 'a', 'b', 'c', 'd', 'correct_answer']
+
