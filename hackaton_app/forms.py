@@ -28,16 +28,16 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class FlashcardCreateForm(forms.ModelForm):
-    visibility = forms.BooleanField()
+    visibility = forms.BooleanField(label="Widoczność", required=False)
     question = forms.CharField(label='Jakie pytanie chcesz zadać ?', widget=forms.TextInput(attrs={'placeholder': 'Zadaj pytanie'}))
-    is_abcd = forms.BooleanField()
-    a = forms.CharField(label='Opcja A', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje A'}))
-    b = forms.CharField(label='Opcja B', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje B'}))
-    c = forms.CharField(label='Opcja C', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje D'}))
-    d = forms.CharField(label='Opcja D', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje C'}))
-    correct_answer = forms.CharField(label='Poprawna odpowiedz', widget=forms.TextInput(attrs={'placeholder': 'Podaj odpowiedz'}))
+    is_abcd = forms.BooleanField(label="ABCD", required=False)
+    a = forms.CharField(label='Opcja A', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje A'}), required=False)
+    b = forms.CharField(label='Opcja B', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje B'}), required=False)
+    c = forms.CharField(label='Opcja C', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje D'}), required=False)
+    d = forms.CharField(label='Opcja D', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje C'}), required=False)
+    correct_answer = forms.CharField(label='Poprawna odpowiedz', widget=forms.TextInput(attrs={'placeholder': 'Podaj odpowiedz'}), required=False)
 
     class Meta:
         model = Flashcard
-        fields = ['visibility', 'question', 'is_abcd', 'a', 'b', 'c', 'd', 'correct_answer']
+        fields = ['question', 'visibility', 'is_abcd', 'a', 'b', 'c', 'd', 'correct_answer']
 

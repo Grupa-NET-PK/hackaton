@@ -51,7 +51,9 @@ def flashcard_create(request):
     if request.method == 'POST':
         f_form = FlashcardCreateForm(data=request.POST)
         if f_form.is_valid():
-            f_form.save()
+            instance = f_form.save(commit=False)
+            instance.user = request.user.profile
+            instance.save()
             messages.success(request, f'Utworzono Fiszkę!')
             return redirect('profile')
     else:

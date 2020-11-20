@@ -19,7 +19,7 @@ class FlashcardSession(models.Model):
 
 
 class Flashcard(models.Model):
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, default=0)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     visibility = models.BooleanField()
     question = models.CharField('Question', max_length=300)
     is_abcd = models.BooleanField()
