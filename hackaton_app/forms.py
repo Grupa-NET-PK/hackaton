@@ -25,3 +25,15 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+
+
+class FlashcardCreateForm(forms.ModelForm):
+    user = forms.ForeignKey(Profile, on_delete=forms.CASCADE, default=0)
+    visibility = forms.BooleanField()
+    question = forms.CharField(label='Jakie pytanie chcesz zadać ?', widget=forms.TextInput(attrs={'placeholder': 'Zadaj pytanie'}))
+    is_abcd = forms.BooleanField()
+    a = forms.CharField(label='Opcja A', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje A'}))
+    b = forms.CharField(label='Opcja B', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje B'}))
+    c = forms.CharField(label='Opcja C', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje D'}))
+    d = forms.CharField(label='Opcja D', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje C'}))
+    correct_answer = forms.CharField(label='Poprawna odpowiedz', widget=forms.TextInput(attrs={'placeholder': 'Podaj odpowiedz'}))
