@@ -1,2 +1,2 @@
-## Templatka django hackaton
+## hackaton
 
