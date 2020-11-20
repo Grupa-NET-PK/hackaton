@@ -28,7 +28,6 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class FlashcardCreateForm(forms.ModelForm):
-    user = forms.ForeignKey(Profile, on_delete=forms.CASCADE, default=0)
     visibility = forms.BooleanField()
     question = forms.CharField(label='Jakie pytanie chcesz zadać ?', widget=forms.TextInput(attrs={'placeholder': 'Zadaj pytanie'}))
     is_abcd = forms.BooleanField()
