@@ -41,3 +41,6 @@ class FlashcardCreateForm(forms.ModelForm):
         model = Flashcard
         fields = ['visibility', 'question', 'is_abcd', 'a', 'b', 'c', 'd', 'correct_answer']
 
+
+class AnswerFlashcardForm(forms.ModelForm):
+    answer = forms.CharField(label='Twoja odpowiedz', widget=forms.TextInput(attrs={'placeholder': 'Podaj odpowiedz'}))
