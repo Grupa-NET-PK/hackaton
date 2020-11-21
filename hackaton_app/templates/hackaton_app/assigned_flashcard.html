@@ -1,22 +1,32 @@
+<div class="row justify-content-around">
 {% for item in flash %}
 
-    <div class="jumbotron">
-    <h1 class="display-4"> {{ item.flash_card.question }} </h1>
-        {% if item.flash_card.is_abcd %}
-            <ul>
-                <li>{{ item.flash_card.a }}</li>
-                <li>{{ item.flash_card.b }}</li>
-                <li>{{ item.flash_card.c }}</li>
-                <li>{{ item.flash_card.d }}</li>
-            </ul>
-            <h3 class="display-4"> {{ item.flash_card.correct_answer }} </h3>
-
-
-    {% endif %}
-
-    <a class="btn btn-primary" href="{% url 'flashcard_answer_create' item.flash_card.id %}">Dodaj odp</a>
-
-    
+    <div class="card my-box-shadow m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h1 class="txt" onload="startTime({{ item.expiration_date }})">123</h1>
+                    <h5 class="card-title">{{ item.flash_card.question }} <span class="txt" onload="startTime({{ item.expiration_date }})"></span></h5>
+                </div>
+                {% if item.flash_card.is_abcd %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        A. {{ item.flash_card.a }}
+                    </li>
+                    <li class="list-group-item">
+                        B. {{ item.flash_card.b }}
+                    </li>
+                    <li class="list-group-item">
+                        C. {{ item.flash_card.c }}
+                    </li>
+                    <li class="list-group-item">
+                        D. {{ item.flash_card.d }}
+                    </li>
+                </ul>
+                {% endif %}
+                <div class="card-body">
+                    <a class="btn btn-primary" href="{% url 'flashcard_answer_create' item.flash_card.id %}">Dodaj odp</a>
+                </div>
+        </div>
 </div>
 
 {% endfor %}
+</div>

@@ -111,7 +111,9 @@ class FlashcardListView(LoginRequiredMixin, ListView):
         except EmptyPage:
             flash = paginator.page(paginator.num_pages)
         return flash
-    
+
+    def count_answers_for_flashcard(self, flashcard_id):
+        return len(AnswerFlashcard.objects.filter(flash_card_id=flashcard_id))
 
 class AssignedFlashcardListView(LoginRequiredMixin, ListView):
     model = AssignedFlashcard
@@ -164,6 +166,7 @@ def flashcard_answer_create(request, pk):
             instance.user = request.user.profile
             instance.flash_card = Flashcard.objects.get(id=pk)
             instance.save()
+            AssignedFlashcard.objects.filter(user_id=request.user.id, flash_card_id=instance.flash_card.id).delete()
             messages.success(request, f'Utworzono Fiszkę!')
             return redirect('flashcard_show')
     else:

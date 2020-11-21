@@ -1,8 +1,14 @@
 {% extends 'hackaton_app/base.html' %}
 {% block content %}
 
-    <form method="post">{% csrf_token %}
-        <p>Napewno chcesz to usunac ? </p>
-        <p><button class="btn btn-outline-primary" type="submit">Tak</button></p>
-    </form>
+<div class="row justify-content-md-center">
+    <div class="card col-lg-4 my-box-shadow">
+        <div class="card-body">
+            <form method="post">{% csrf_token %}
+                <p>Napewno chcesz to usunac ? </p>
+                <p><button class="btn btn-outline-primary" type="submit">Tak</button></p>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

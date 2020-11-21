@@ -1,13 +1,12 @@
 {% extends 'hackaton_app/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-
 <div class="content-section">
- <form action="." method="post">
-        {{ f_form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Stwórz"></p>
+     <form action="." method="post">
+            {{ f_form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Stwórz"></p>
 
-</form>
-
+    </form>
+</div>
 {% endblock content %}
