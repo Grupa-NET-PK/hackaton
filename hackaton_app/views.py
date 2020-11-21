@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.urls import reverse_lazy
+
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm,FlashcardCreateOQForm, AssignFlashcardForm, AnswerFlashcardCreate
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import *
 
 
@@ -148,8 +150,6 @@ def check_assigned_flashcards(request):
         return len(result) > 0
 
 
-Flashcard_ListView = FlashcardListView.as_view()
-
 
 @login_required
 def flashcard_answer_create(request, pk):
@@ -170,3 +170,19 @@ def flashcard_answer_create(request, pk):
     }
 
     return render(request, 'hackaton_app/flashcard_answer_create.html', context)
+
+
+class FlashcardUpdateView(UpdateView):
+    model = Flashcard
+    fields = ['question', 'a', 'b', 'c', 'd', 'abcd_answer', 'visibility']
+    template_name_suffix = '_update_your_flash'
+
+
+class FlashcardDeleteView(DeleteView):
+    model = Flashcard
+    success_url = reverse_lazy('home')
+
+
+Flashcard_ListView = FlashcardListView.as_view()
+Flashcard_UpdateView = FlashcardUpdateView.as_view()
+Flashcard_DeleteView = FlashcardDeleteView.as_view()
