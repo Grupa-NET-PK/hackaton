@@ -7,7 +7,7 @@ function runInterval(userid, url){
                 'userid': userid
             },
             success: function (data) {
-                $("#assigned_flashcards").html("+$"+data);
+                //$("#assigned_flashcards").html("+$"+data);
                 console.log(data);
             }
         })
