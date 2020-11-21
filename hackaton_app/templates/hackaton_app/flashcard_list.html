@@ -4,7 +4,8 @@
     {% for item in flash %}
 
         <div class="jumbotron">
-          <h1 class="display-5"> {{ item.question }} </h1>
+
+            <a href="{% url 'flashcard_detail' item.id %}"><h1 class="display-4"> {{ item.question }} </h1></a>
             {% if item.is_abcd%}
                 <ul>
                     <li>{{ item.a }}</li>
