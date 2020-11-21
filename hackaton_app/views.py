@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm,FlashcardCreateOQForm, AssignFlashcardForm, AnswerFlashcardCreate
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, DetailView
 from .models import *
 
 
@@ -170,3 +170,17 @@ def flashcard_answer_create(request, pk):
     }
 
     return render(request, 'hackaton_app/flashcard_answer_create.html', context)
+
+
+class FlashcardDetailView(DetailView):
+    model = Flashcard
+    template = 'hackaton_app/flashcard_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        akt_flashcard = get_object_or_404(Flashcard, id=self.kwargs['pk'])
+        answers = AnswerFlashcard.objects.filter(flash_card=akt_flashcard)
+        context['flash'] = akt_flashcard
+        context['flash_ans'] = answers
+        return context
+

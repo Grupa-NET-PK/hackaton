@@ -1,0 +1,23 @@
+{% extends 'hackaton_app/base.html' %}
+{% block content %}
+
+<h1>{{ flash.question }}</h1>
+<ul>
+    <li>{{ flash.a }}</li>
+    <li>{{ flash.b }}</li>
+    <li>{{ flash.c }}</li>
+    <li>{{ flash.d }}</li>
+</ul>
+<p>Poprawna {{ flash.correct_answer }}</p>
+
+
+{% if flash_ans is not None %}
+{% for item in flash_ans %}
+    <p>{{item.answer}}</p>
+
+{% endfor %}
+{% endif %}
+
+
+
+{% endblock %}
