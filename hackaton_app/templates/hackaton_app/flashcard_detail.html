@@ -1,16 +1,17 @@
 {% extends 'hackaton_app/base.html' %}
 {% block content %}
-
-<h1>{{ flash.question }}</h1>
+<div class="jumbotron bg-white my-box-shadow border">
+<h1 class="display-4">{{ flash.question }}</h1>
+    <hr>
 {% if flash.is_abcd %}
-<ul>
-    <li>{{ flash.a }}</li>
-    <li>{{ flash.b }}</li>
-    <li>{{ flash.c }}</li>
-    <li>{{ flash.d }}</li>
+<ul style="list-style: upper-alpha;">
+    <li class="p-1">{{ flash.a }}</li>
+    <li class="p-1">{{ flash.b }}</li>
+    <li class="p-1">{{ flash.c }}</li>
+    <li class="p-1">{{ flash.d }}</li>
 </ul>
 {% endif %}
-<p>Poprawna: {{ flash.correct_answer }}</p>
+<h3>Poprawna: {{ flash.correct_answer }}</h3>
 
 
 {% if flash_ans is not None %}
@@ -19,7 +20,7 @@
 
 {% endfor %}
 {% endif %}
-
+</div>
 
 
 {% endblock %}

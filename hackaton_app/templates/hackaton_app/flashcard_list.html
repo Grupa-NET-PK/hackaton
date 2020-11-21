@@ -1,23 +1,33 @@
 {% extends 'hackaton_app/base.html' %}
 {% block content %}
-
+<div class="row justify-content-around">
     {% for item in flash %}
-
-        <div class="jumbotron">
-
-            <a href="{% url 'flashcard_detail' item.id %}"><h1 class="display-4"> {{ item.question }} </h1></a>
-            {% if item.is_abcd%}
-                <ul>
-                    <li>{{ item.a }}</li>
-                    <li>{{ item.b }}</li>
-                    <li>{{ item.c }}</li>
-                    <li>{{ item.d }}</li>
-                </ul>
-            {% endif %}
-            <h3 class="lead"> {{ item.correct_answer }} </h3>
-            <a class="btn btn-primary" href="{% url 'flashcard_update' item.pk %}">Aktualizuj fiszke</a>
+    <div class="card my-box-shadow m-2" style="width: 18rem;">
+        <div class="card-body">
+            <a href="{% url 'flashcard_detail' item.id %}"><h5 class="card-title">{{ item.question }}</h5></a>
+        </div>
+        {% if item.is_abcd%}
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                A. {{ item.a }}
+            </li>
+            <li class="list-group-item">
+                B. {{ item.b }}
+            </li>
+            <li class="list-group-item">
+                C. {{ item.c }}
+            </li>
+            <li class="list-group-item">
+                D. {{ item.d }}
+            </li>
+        </ul>
+        {% endif %}
+        <div class="card-body">
+            <p>Poprawna odpowiedź: {{ item.correct_answer }}</p>
+            <a class="btn btn-primary mb-2" href="{% url 'flashcard_update' item.pk %}">Aktualizuj fiszke</a>
             <a class="btn btn-primary" href="{% url 'flashcard_delete' item.pk %}">Usuń fiszke</a>
         </div>
-
+    </div>
     {% endfor %}
+</div>
 {% endblock %}
