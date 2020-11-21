@@ -1,21 +1,26 @@
 {% extends 'hackaton_app/base.html' %}
 {% block content %}
+{% if request.user.is_authenticated %}
+    <div class="jumbotron bg-white my-box-shadow border">
+      <h1 class="display-4">Tworzenie Fiszek</h1>
+        <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create_oquestion' %}" role="button">Pytanie Otwarte</a>
+      <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create' %}" role="button">ABCD</a>
+      <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="{% url 'assign_flashcard' %}" role="button">Przydziel fiszkę</a>
+    </div>
+    <div class="jumbotron bg-white my-box-shadow border">
+      <h1 class="display-4">Zobacz utworzone fiszki</h1>
+        <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="{% url 'flashcard_show' %}" role="button">Zobacz fiszki</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'assigned_flashcard_show' %}" role="button">Przydzielone fiszki</a>
+      <button onclick="check_assigned_flashcards({{ user_id }})" class="btn btn-secondary">Sprawdź przydzielone</button>
+    </div>
 
-<div class="jumbotron bg-white my-box-shadow border">
-  <h1 class="display-4">Tworzenie Fiszek</h1>
-    <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create_oquestion' %}" role="button">Pytanie Otwarte</a>
-  <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create' %}" role="button">ABCD</a>
-  <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="{% url 'assign_flashcard' %}" role="button">Przydziel fiszkę</a>
-</div>
-<div class="jumbotron bg-white my-box-shadow border">
-  <h1 class="display-4">Zobacz utworzone fiszki</h1>
-    <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="{% url 'flashcard_show' %}" role="button">Zobacz fiszki</a>
-    <a class="btn btn-primary btn-lg" href="{% url 'assigned_flashcard_show' %}" role="button">Przydzielone fiszki</a>
-  <button onclick="check_assigned_flashcards({{ user_id }})" class="btn btn-secondary">Sprawdź przydzielone</button>
-</div>
+{% else %}
+    XD
+{% endif %}
+
 {% endblock %}
 {% block scripts %}
 <!--<script>-->
