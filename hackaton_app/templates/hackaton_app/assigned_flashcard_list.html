@@ -1,0 +1,25 @@
+{% extends 'hackaton_app/base.html' %}
+{% block content %}
+
+<h1>Przyznane fiszki</h1>
+
+    {% for item in flash %}
+
+        <div class="jumbotron">
+          <h1 class="display-4"> {{ item.flash_card.question }} </h1>
+            {% if item.flash_card.is_abcd%}
+                <ul>
+                    <li>{{ item.flash_card.a }}</li>
+                    <li>{{ item.flash_card.b }}</li>
+                    <li>{{ item.flash_card.c }}</li>
+                    <li>{{ item.flash_card.d }}</li>
+                </ul>
+                <h3 class="display-4"> {{ item.flash_card.correct_answer }} </h3>
+
+            {% endif %}
+
+
+        </div>
+
+    {% endfor %}
+{% endblock %}

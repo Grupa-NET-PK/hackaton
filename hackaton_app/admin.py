@@ -9,5 +9,5 @@ admin.site.register(Flashcard)
 admin.site.register(UserGroup)
 admin.site.register(Membership)
 admin.site.register(AnswerFlashcard)
-
+admin.site.register(AssignedFlashcard)
 

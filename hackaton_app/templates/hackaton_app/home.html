@@ -1,13 +1,16 @@
 {% extends 'hackaton_app/base.html' %}
 {% block content %}
+
 <div class="jumbotron bg-white my-box-shadow border">
   <h1 class="display-4">Tworzenie Fiszek</h1>
     <hr class="my-4">
   <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create' %}" role="button">Stwórz Fiszkę</a>
+    <a class="btn btn-primary btn-lg" href="{% url 'assign_flashcard' %}" role="button">Przydziel fiszkę</a>
 </div>
 <div class="jumbotron bg-white my-box-shadow border">
   <h1 class="display-4">Zobacz utowrzone fiszki</h1>
     <hr class="my-4">
   <a class="btn btn-primary btn-lg" href="{% url 'flashcard_show' %}" role="button">Zobacz fiszki</a>
+    <a class="btn btn-primary btn-lg" href="{% url 'assigned_flashcard_show' %}" role="button">Przydzielone fiszki</a>
 </div>
 {% endblock %}

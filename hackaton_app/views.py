@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm, AssignFlashcardForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from .models import *
@@ -59,7 +59,7 @@ def flashcard_create(request):
             instance.user = request.user.profile
             instance.save()
             messages.success(request, f'Utworzono Fiszkę!')
-            return redirect('profile')
+            return redirect('flashcard_show')
     else:
         f_form = FlashcardCreateForm()
 
@@ -87,6 +87,37 @@ class FlashcardListView(LoginRequiredMixin, ListView):
             flash = paginator.page(paginator.num_pages)
         return flash
     
+
+class AssignedFlashcardListView(LoginRequiredMixin, ListView):
+    model = AssignedFlashcard
+    template_name = 'hackaton_app/assigned_flashcard_list.html'
+    context_object_name = 'flash'
+
+    def get_queryset(self):
+        # filter_val = self.request.GET.get('filter', 'give-default-value')
+        # order = self.request.GET.get('orderby', 'give-default-value')
+        # user = get_object_or_404(User, username=self.kwargs.get["username"])
+        new_context = AssignedFlashcard.objects.filter(
+            user_id=self.request.user.id,
+        )
+        return new_context
+
+
+@login_required
+def flashcard_assign(request):
+    if request.method == 'POST':
+        f_form = AssignFlashcardForm(request.POST)
+        if f_form.is_valid():
+            instance = f_form.save(commit=False)
+            instance.user = request.user.profile
+            instance.save()
+            messages.success(request, f'Przypisano fiszkę!')
+            return redirect('profile')
+    else:
+        f_form = AssignFlashcardForm()
+
+    return render(request, 'hackaton_app/assign_flashcard.html', {'form': f_form})
+
 
 
 Flashcard_ListView = FlashcardListView.as_view()

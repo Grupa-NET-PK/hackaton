@@ -56,3 +56,12 @@ class AnswerFlashcard(models.Model):
 
     def __str__(self):
         return self.answer
+
+
+class AssignedFlashcard(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, default=0)
+    flash_card = models.ForeignKey(Flashcard, on_delete=models.CASCADE, default=0)
+    expiration_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.user) + " - " + self.flash_card.question
