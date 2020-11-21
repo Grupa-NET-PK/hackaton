@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateOQForm, FlashcardCreateForm, AssignFlashcardForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm,FlashcardCreateOQForm, AssignFlashcardForm, AnswerFlashcardCreate
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from .models import *
 
 
@@ -149,3 +149,24 @@ def check_assigned_flashcards(request):
 
 
 Flashcard_ListView = FlashcardListView.as_view()
+
+
+@login_required
+def flashcard_answer_create(request, pk):
+    if request.method == 'POST':
+        f_form = AnswerFlashcardCreate(data=request.POST)
+        if f_form.is_valid():
+            instance = f_form.save(commit=False)
+            instance.user = request.user.profile
+            instance.flash_card = Flashcard.objects.get(id=pk)
+            instance.save()
+            messages.success(request, f'Utworzono Fiszkę!')
+            return redirect('flashcard_show')
+    else:
+        f_form = AnswerFlashcardCreate()
+
+    context = {
+        'f_form': f_form,
+    }
+
+    return render(request, 'hackaton_app/flashcard_answer_create.html', context)

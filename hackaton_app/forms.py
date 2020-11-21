@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, Flashcard, AssignedFlashcard
+from .models import Profile, Flashcard, AssignedFlashcard, AnswerFlashcard
 
 
 class UserRegisterForm(UserCreationForm):
@@ -73,3 +73,9 @@ class AssignFlashcardForm(forms.ModelForm):
     class Meta:
         model = AssignedFlashcard
         fields = ['user', 'flash_card']
+
+
+class AnswerFlashcardCreate(forms.ModelForm):
+    class Meta:
+        model = AnswerFlashcard
+        fields = ['answer']
