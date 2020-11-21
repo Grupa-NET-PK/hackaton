@@ -17,5 +17,8 @@ urlpatterns = [
     path('assign_flashcard/', views.flashcard_assign, name='assign_flashcard'),
     path('check_assigned_flashcards/', views.check_assigned_flashcards, name='check_assigned_flashcards'),
     path('assign_flashcard_response/<int:pk>/', views.flashcard_answer_create, name='flashcard_answer_create'),
-    path('flashcard_detail/<int:pk>/', views.FlashcardDetailView.as_view(), name='flashcard_detail'),
+    path('<int:pk>/update_flash', views.Flashcard_UpdateView, name='flashcard_update'),
+    path('<int:pk>/delete_flash', views.Flashcard_DeleteView, name='flashcard_delete'),
+    path('<int:pk>/detail_flash', views.Flashcard_DetailView, name='flashcard_detail'),
+
 ]
