@@ -1,7 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
+from .models import *
 
 
 def home(request):
@@ -64,3 +67,12 @@ def flashcard_create(request):
     }
 
     return render(request, 'hackaton_app/flashcard_create.html', context)
+
+
+class FlashcardListView(LoginRequiredMixin, ListView):
+    model = Flashcard
+    template_name = 'hackaton_app/flashcard_list.html'
+    context_object_name = 'flash'
+
+
+Flashcard_ListView = FlashcardListView.as_view()
