@@ -14,23 +14,89 @@
     <hr class="my-4">
   <a class="btn btn-primary btn-lg" href="{% url 'flashcard_show' %}" role="button">Zobacz fiszki</a>
     <a class="btn btn-primary btn-lg" href="{% url 'assigned_flashcard_show' %}" role="button">Przydzielone fiszki</a>
-  <button onclick="check_assigned_flashcards({{ user_id }})" class="btn btn-secondary">Sprawdź przydzielone</button>
+  <button onclick="send_test(2)" class="btn btn-secondary">Sprawdź przydzielone</button>
   <div id="assigned_flashcards"></div>
 </div>
 {% endblock %}
 {% block scripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
-<!--<script>-->
-<!--&lt;!&ndash;  setInterval(check_assigned_flashcards, 2000);&ndash;&gt;-->
-
-<!--  function check_assigned_flashcards(){-->
-<!--    $.ajax({-->
-<!--        type: 'GET'-->
-<!--        url: '{% url 'check_assigned_flashcards' %}',-->
-<!--        success: function (data) {-->
-<!--            $("#assigned_flashcards").html("+$"+data);-->
+<script>
+<!--        function createSession() {-->
+<!--            const webSocketBridge = new channels.WebSocketBridge();-->
+<!--            webSocketBridge.connect('/ws/');-->
+<!--            webSocketBridge.listen(function(action, stream) {-->
+<!--                console.log("Response:", action, stream);-->
+<!--            });-->
+<!--            document.ws = webSocketBridge; /* for debugging */-->
 <!--        }-->
-<!--    })-->
-<!--  };-->
-<!--</script>-->
+
+    function init_socker_connection(){
+        ws = new WebSocket("ws:/localhost:8000/ws/polData/");
+        ws.onopen = e => {
+            console.log('Open ', e);
+        }
+
+        ws.onmessage = e => {
+        console.log('Message ', e);
+        console.log('Message {{ user.id }}');
+            if (e === {{ user.id }}) {
+              console.log('Message ', e);
+            }
+        }
+
+        ws.onerror = e => {
+            console.log('Error ', e);
+        }
+
+        ws.onoclose = e => {
+            console.log('Close ', e);
+        }
+    }
+
+    function send_test(target) {
+        ws.send(target);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        init_socker_connection();
+    }, false)
+
+<!--    let socket = new WebSocket('ws://localhost:8000/ws/polData/');-->
+<!--    socket.onopen =function(e){-->
+<!--        alert('Connection established');-->
+<!--    };-->
+
+<!--    socket.onmessage = function(e){-->
+<!--        alert(e);-->
+<!--    };-->
+<!--        let parset_data = JSON.parse(e.data),-->
+<!--            Chat_MSG =  parset_data.Message,-->
+<!--            Chat_AUTHOR =  parset_data.Author;-->
+
+<!--        ChatItself.append('<li>' + Chat_MSG + ' <= via => ' + Chat_AUTHOR + '</li>');-->
+
+<!--    };-->
+
+<!--    socket.listen(function(action, stream) {-->
+<!--                console.log("Response:", action, stream)-->
+<!--            });-->
+
+<!--    socket.onerror = function(e){-->
+<!--        console.log('Error', e)-->
+<!--    };-->
+<!--    socket.onclose = function(e){-->
+<!--        console.log('Close', e)-->
+<!--    };-->
+
+<!--    function check_assigned_flashcards(userid) {-->
+<!--      socket.send("{'value': userid}");-->
+<!--    }-->
+
+<!--        const webSocket = webSocket.WebSocket();-->
+<!--        webSocketBridge.connect('ws://localhost:8000/ws/polData/');-->
+<!--            webSocketBridge.listen(function(action, stream) {-->
+<!--                console.log("Response:", action, stream);-->
+<!--            });-->
+<!--        document.ws = webSocketBridge; /* for debugging */-->
+</script>
 {% endblock %}
