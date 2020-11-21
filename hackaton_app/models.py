@@ -22,7 +22,7 @@ class Flashcard(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     visibility = models.BooleanField()
     question = models.CharField('Question', max_length=300)
-    is_abcd = models.BooleanField()
+    is_abcd = models.BooleanField(default=True)
     a = models.CharField('Option a', max_length=50, default=0)
     b = models.CharField('Option b', max_length=50, default=0)
     c = models.CharField('LOption c', max_length=50, default=0)
