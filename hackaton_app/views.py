@@ -151,6 +151,8 @@ def check_assigned_flashcards(request):
     html = render_to_string('hackaton_app/assigned_flashcard.html', {'flash': result})    
     return HttpResponse(html)
 
+    
+
 
 
 @login_required
@@ -186,6 +188,13 @@ class FlashcardDetailView(DetailView):
         context['flash_ans'] = answers
         return context
 
+@login_required
+def check_answers(request):
+    flashcard = Flashcard.objects.get(id=request.GET.get('flash_id'))
+    result = AnswerFlashcard.objects.filter(flash_card=flashcard)
+
+    html = render_to_string('hackaton_app/flashcard_answers.html', {'flash_ans': result})    
+    return HttpResponse(html)
 
 class FlashcardUpdateView(UpdateView):
     model = Flashcard

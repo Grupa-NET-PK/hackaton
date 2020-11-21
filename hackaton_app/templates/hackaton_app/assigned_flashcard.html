@@ -11,10 +11,12 @@
             </ul>
             <h3 class="display-4"> {{ item.flash_card.correct_answer }} </h3>
 
-            <a class="btn btn-primary" href="{% url 'flashcard_answer_create' item.flash_card.id %}">Dodaj odp</a>
 
-        {% endif %}
-        
-    </div>
+    {% endif %}
+
+    <a class="btn btn-primary" href="{% url 'flashcard_answer_create' item.flash_card.id %}">Dodaj odp</a>
+
+    
+</div>
 
 {% endfor %}

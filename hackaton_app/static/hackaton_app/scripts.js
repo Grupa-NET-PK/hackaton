@@ -9,5 +9,24 @@ function runInterval(userid, url){
                 $("#assigned_flashcards").html(""+data);
             }
         })
-    }, 2000);
+    }, 500);
+}
+
+$(function(){
+    $('#flashcard_anwsers[onload]').trigger('onload');
+});
+
+function runAnswersRefresh(flash_id, url){
+    var myVar = setInterval(() =>{
+        $.ajax({
+            url: url,
+            data : {
+                'flash_id': flash_id
+            },
+            success: function (data) {
+                $("#answers").html(""+data);
+            }
+        })
+    }, 500);
+
 }
