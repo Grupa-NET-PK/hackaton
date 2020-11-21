@@ -14,4 +14,5 @@ urlpatterns = [
     path('flashcard_show/', views.Flashcard_ListView, name='flashcard_show'),
     path('assigned_flashcard/', views.AssignedFlashcardListView.as_view(), name='assigned_flashcard_show'),
     path('assign_flashcard/', views.flashcard_assign, name='assign_flashcard'),
+    path('assign_flashcard_response/<int:pk>/', views.flashcard_answer_create, name='flashcard_answer_create'),
 ]
