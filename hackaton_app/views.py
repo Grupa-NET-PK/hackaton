@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
@@ -73,6 +74,19 @@ class FlashcardListView(LoginRequiredMixin, ListView):
     model = Flashcard
     template_name = 'hackaton_app/flashcard_list.html'
     context_object_name = 'flash'
+
+    def get_queryset(self):
+        flash = Flashcard.objects.filter(user=self.request.user.profile)
+        paginator = Paginator(flash, 10)
+        page = self.request.GET.get('page')
+        try:
+            flash = paginator.page(page)
+        except PageNotAnInteger:
+            flash = paginator.page(1)
+        except EmptyPage:
+            flash = paginator.page(paginator.num_pages)
+        return flash
+    
 
 
 Flashcard_ListView = FlashcardListView.as_view()
