@@ -1,5 +1,18 @@
-{% if flash_ans is not None %}
-    {% for item in flash_ans %}
-        <p>{{item.answer}}</p>
-    {% endfor %}
-{% endif %}
+<table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Użytkownik</th>
+              <th scope="col">Odpowiedź</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for item in flash_ans %}
+            <tr>
+              <th scope="row">{{ item.id }}</th>
+              <td>{{ item.user.user.first_name }} {{ item.user.user.last_name }}</td>
+              <td>{{ item.answer }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+    </table>

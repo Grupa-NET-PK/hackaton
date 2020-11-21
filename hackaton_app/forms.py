@@ -73,6 +73,7 @@ class FlashcardForm(forms.ModelForm):
         model = Flashcard
         fields = ['question', 'a', 'b', 'c', 'd', 'abcd_answer', 'visibility']
 
+
 class AnswerFlashcardForm(forms.ModelForm):
     answer = forms.CharField(label='Twoja odpowiedz', widget=forms.TextInput(attrs={'placeholder': 'Podaj odpowiedz'}))
 
@@ -82,6 +83,7 @@ class AssignFlashcardForm(forms.ModelForm):
     def __init__(self, userid, *args, **kwargs):
         super(AssignFlashcardForm, self).__init__(*args, **kwargs)
         self.fields['flash_card'].queryset = Flashcard.objects.filter(user_id=userid)
+        self.fields['user'].queryset = Profile.objects.all()#exclude(id=userid)
 
     class Meta:
         model = AssignedFlashcard

@@ -3,25 +3,40 @@
 <div id="flashcard_anwsers" onload="runAnswersRefresh( '{{flash.id}}', '{% url 'check_answers' %}' )">
     <h1>{{ flash.question }}</h1>
     {% if flash.is_abcd %}
+    <p>Dostępne odpowiedzi:</p>
     <ul>
         <li>{{ flash.a }}</li>
         <li>{{ flash.b }}</li>
         <li>{{ flash.c }}</li>
         <li>{{ flash.d }}</li>
     </ul>
+    {% else %}
+        <p>Ta fiszka jest pytaniem otwartym</p>
     {% endif %}
     <p>Poprawna: {{ flash.correct_answer }}</p>
 
-
     <div id="answers">
         {% if flash_ans is not None %}
-        {% for item in flash_ans %}
-            <p>{{item.answer}}</p>
-        {% endfor %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Użytkownik</th>
+              <th scope="col">Odpowiedź</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for item in flash_ans %}
+            <tr>
+              <th scope="row">{{ item.id }}</th>
+              <td>{{ item.user.user.first_name }} {{ item.user.user.last_name }}</td>
+              <td>{{ item.answer }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
         {% endif %}
     </div>
-    
 </div>
-
 
 {% endblock %}
