@@ -15,7 +15,6 @@
   <a class="btn btn-primary btn-lg" href="{% url 'flashcard_show' %}" role="button">Zobacz fiszki</a>
     <a class="btn btn-primary btn-lg" href="{% url 'assigned_flashcard_show' %}" role="button">Przydzielone fiszki</a>
   <button onclick="check_assigned_flashcards({{ user_id }})" class="btn btn-secondary">Sprawdź przydzielone</button>
-  <div id="assigned_flashcards"></div>
 </div>
 {% endblock %}
 {% block scripts %}
