@@ -201,4 +201,5 @@ class FlashcardDeleteView(DeleteView):
 Flashcard_ListView = FlashcardListView.as_view()
 Flashcard_UpdateView = FlashcardUpdateView.as_view()
 Flashcard_DeleteView = FlashcardDeleteView.as_view()
+Flashcard_DetailView = FlashcardDetailView.as_view()
 
