@@ -1,25 +1,27 @@
 {% extends 'hackaton_app/base.html' %}
 {% block content %}
+<div id="flashcard_anwsers" onload="runAnswersRefresh( '{{flash.id}}', '{% url 'check_answers' %}' )">
+    <h1>{{ flash.question }}</h1>
+    {% if flash.is_abcd %}
+    <ul>
+        <li>{{ flash.a }}</li>
+        <li>{{ flash.b }}</li>
+        <li>{{ flash.c }}</li>
+        <li>{{ flash.d }}</li>
+    </ul>
+    {% endif %}
+    <p>Poprawna: {{ flash.correct_answer }}</p>
 
-<h1>{{ flash.question }}</h1>
-{% if flash.is_abcd %}
-<ul>
-    <li>{{ flash.a }}</li>
-    <li>{{ flash.b }}</li>
-    <li>{{ flash.c }}</li>
-    <li>{{ flash.d }}</li>
-</ul>
-{% endif %}
-<p>Poprawna: {{ flash.correct_answer }}</p>
 
-
-{% if flash_ans is not None %}
-{% for item in flash_ans %}
-    <p>{{item.answer}}</p>
-
-{% endfor %}
-{% endif %}
-
+    <div id="answers">
+        {% if flash_ans is not None %}
+        {% for item in flash_ans %}
+            <p>{{item.answer}}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    
+</div>
 
 
 {% endblock %}

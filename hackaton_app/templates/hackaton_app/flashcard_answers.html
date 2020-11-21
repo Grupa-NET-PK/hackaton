@@ -1,0 +1,5 @@
+{% if flash_ans is not None %}
+    {% for item in flash_ans %}
+        <p>{{item.answer}}</p>
+    {% endfor %}
+{% endif %}
