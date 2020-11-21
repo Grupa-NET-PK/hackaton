@@ -19,14 +19,22 @@ class FlashcardSession(models.Model):
 
 
 class Flashcard(models.Model):
+    ABCD_CHOICES = (
+        ('a', 'A'),
+        ('b', 'B'),
+        ('c', 'C'),
+        ('d', 'D'),
+    )
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     visibility = models.BooleanField()
     question = models.CharField('Question', max_length=300)
     is_abcd = models.BooleanField(default=True)
+    is_openquestion = models.BooleanField(default=False)
     a = models.CharField('Option a', max_length=50, default=0)
     b = models.CharField('Option b', max_length=50, default=0)
     c = models.CharField('LOption c', max_length=50, default=0)
     d = models.CharField('Option d', max_length=50, default=0)
+    abcd_answer = models.CharField(max_length=1, choices=ABCD_CHOICES, default='a')
     correct_answer = models.CharField('Correct answer', max_length=300, default=0)
 
     def __str__(self):

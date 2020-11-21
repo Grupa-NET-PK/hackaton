@@ -4,7 +4,7 @@
     {% for item in flash %}
 
         <div class="jumbotron">
-          <h1 class="display-4"> {{ item.question }} </h1>
+          <h1 class="display-5"> {{ item.question }} </h1>
             {% if item.is_abcd%}
                 <ul>
                     <li>{{ item.a }}</li>
@@ -12,10 +12,8 @@
                     <li>{{ item.c }}</li>
                     <li>{{ item.d }}</li>
                 </ul>
-                <h3 class="display-4"> {{ item.correct_answer }} </h3>
-
             {% endif %}
-
+            <h3 class="lead"> {{ item.correct_answer }} </h3>
 
         </div>
 

@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm, AssignFlashcardForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateOQForm, FlashcardCreateForm, AssignFlashcardForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
@@ -68,6 +68,27 @@ def flashcard_create(request):
     }
 
     return render(request, 'hackaton_app/flashcard_create.html', context)
+
+@login_required
+def flashcard_create_oquestion(request):
+    if request.method == 'POST':
+        f_form = FlashcardCreateOQForm(data=request.POST)
+        if f_form.is_valid():
+            instance = f_form.save(commit=False)
+            instance.is_openquestion = True
+            instance.is_abcd = False
+            instance.user = request.user.profile
+            instance.save()
+            messages.success(request, f'Utworzono Fiszkę!')
+            return redirect('flashcard_show')
+    else:
+        f_form = FlashcardCreateOQForm()
+
+    context = {
+        'f_form': f_form,
+    }
+
+    return render(request, 'hackaton_app/flashcard_create_oquestion.html', context)
 
 
 class FlashcardListView(LoginRequiredMixin, ListView):

@@ -4,8 +4,10 @@
 <div class="jumbotron bg-white my-box-shadow border">
   <h1 class="display-4">Tworzenie Fiszek</h1>
     <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create' %}" role="button">Stwórz Fiszkę</a>
-    <a class="btn btn-primary btn-lg" href="{% url 'assign_flashcard' %}" role="button">Przydziel fiszkę</a>
+  <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create_oquestion' %}" role="button">Pytanie Otwarte</a>
+  <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create' %}" role="button">ABCD</a>
+  <hr class="my-4">
+  <a class="btn btn-primary btn-lg" href="{% url 'assign_flashcard' %}" role="button">Przydziel fiszkę</a>
 </div>
 <div class="jumbotron bg-white my-box-shadow border">
   <h1 class="display-4">Zobacz utowrzone fiszki</h1>

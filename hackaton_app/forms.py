@@ -28,6 +28,12 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class FlashcardCreateForm(forms.ModelForm):
+    ABCD_CHOICES = (
+        ('a', 'A'),
+        ('b', 'B'),
+        ('c', 'C'),
+        ('d', 'D'),
+    )
     visibility = forms.BooleanField(label="Widoczność", required=False)
     question = forms.CharField(label='Jakie pytanie chcesz zadać ?', widget=forms.TextInput(attrs={'placeholder': 'Zadaj pytanie'}))
     is_abcd = forms.BooleanField(widget=forms.HiddenInput(),label="ABCD", required=False)
@@ -35,11 +41,23 @@ class FlashcardCreateForm(forms.ModelForm):
     b = forms.CharField(label='Opcja B', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje B'}), required=False)
     c = forms.CharField(label='Opcja C', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje D'}), required=False)
     d = forms.CharField(label='Opcja D', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje C'}), required=False)
-    correct_answer = forms.CharField(label='Poprawna odpowiedz', widget=forms.TextInput(attrs={'placeholder': 'Podaj odpowiedz'}), required=False)
+    abcd_answer = forms.CharField(label="Poprawna odpowiedź", max_length=1, widget=forms.Select(choices=ABCD_CHOICES))
+    correct_answer = forms.CharField(label='Poprawna odpowiedz', widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Flashcard
-        fields = ['question', 'visibility', 'a', 'b', 'c', 'd', 'correct_answer']
+        fields = ['question', 'a', 'b', 'c', 'd', 'abcd_answer', 'visibility']
+
+class FlashcardCreateOQForm(forms.ModelForm):
+    question = forms.CharField(label='Jakie pytanie chcesz zadać ?', widget=forms.TextInput(attrs={'placeholder': 'Zadaj pytanie'}))
+    is_abcd = forms.BooleanField(widget=forms.HiddenInput(),label="ABCD", required=False, initial=False)
+    is_openquestion = forms.BooleanField(widget=forms.HiddenInput, required=False, initial=True)
+    correct_answer = forms.CharField(label='Proponowana odpowiedz', widget=forms.TextInput(attrs={'placeholder': 'Podaj odpowiedz'}), required=False)
+    visibility = forms.BooleanField(label="Widoczność", required=False)
+
+    class Meta:
+        model = Flashcard
+        fields = ['question', 'correct_answer', 'visibility']
 
 
 class AnswerFlashcardForm(forms.ModelForm):
