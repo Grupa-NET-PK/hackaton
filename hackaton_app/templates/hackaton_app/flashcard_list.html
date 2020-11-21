@@ -15,7 +15,8 @@
                 </ul>
             {% endif %}
             <h3 class="lead"> {{ item.correct_answer }} </h3>
-
+            <a class="btn btn-primary" href="{% url 'flashcard_update' item.pk %}">Aktualizuj fiszke</a>
+            <a class="btn btn-primary" href="{% url 'flashcard_delete' item.pk %}">Usuń fiszke</a>
         </div>
 
     {% endfor %}

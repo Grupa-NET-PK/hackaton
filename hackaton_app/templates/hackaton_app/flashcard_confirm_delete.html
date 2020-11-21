@@ -1,0 +1,8 @@
+{% extends 'hackaton_app/base.html' %}
+{% block content %}
+
+    <form method="post">{% csrf_token %}
+        <p>Napewno chcesz to usunac ? </p>
+        <p><button class="btn btn-outline-primary" type="submit">Tak</button></p>
+    </form>
+{% endblock %}
