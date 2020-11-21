@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -45,3 +45,22 @@ def profile(request):
     }
 
     return render(request, 'hackaton_app/profile.html', context)
+
+@login_required
+def flashcard_create(request):
+    if request.method == 'POST':
+        f_form = FlashcardCreateForm(data=request.POST)
+        if f_form.is_valid():
+            instance = f_form.save(commit=False)
+            instance.user = request.user.profile
+            instance.save()
+            messages.success(request, f'Utworzono Fiszkę!')
+            return redirect('profile')
+    else:
+        f_form = FlashcardCreateForm()
+
+    context = {
+        'f_form': f_form,
+    }
+
+    return render(request, 'hackaton_app/flashcard_create.html', context)
