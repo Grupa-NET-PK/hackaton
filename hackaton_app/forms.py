@@ -65,6 +65,11 @@ class AnswerFlashcardForm(forms.ModelForm):
 
 
 class AssignFlashcardForm(forms.ModelForm):
+
+    def __init__(self, userid, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['flash_card'].queryset = Flashcard.objects.filter(user_id=userid)
+
     class Meta:
         model = AssignedFlashcard
         fields = ['user', 'flash_card']

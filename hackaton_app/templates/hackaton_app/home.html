@@ -14,5 +14,23 @@
     <hr class="my-4">
   <a class="btn btn-primary btn-lg" href="{% url 'flashcard_show' %}" role="button">Zobacz fiszki</a>
     <a class="btn btn-primary btn-lg" href="{% url 'assigned_flashcard_show' %}" role="button">Przydzielone fiszki</a>
+  <button onclick="check_assigned_flashcards({{ user_id }})" class="btn btn-secondary">Sprawdź przydzielone</button>
+  <div id="assigned_flashcards"></div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+<!--<script>-->
+<!--&lt;!&ndash;  setInterval(check_assigned_flashcards, 2000);&ndash;&gt;-->
+
+<!--  function check_assigned_flashcards(){-->
+<!--    $.ajax({-->
+<!--        type: 'GET'-->
+<!--        url: '{% url 'check_assigned_flashcards' %}',-->
+<!--        success: function (data) {-->
+<!--            $("#assigned_flashcards").html("+$"+data);-->
+<!--        }-->
+<!--    })-->
+<!--  };-->
+<!--</script>-->
 {% endblock %}
