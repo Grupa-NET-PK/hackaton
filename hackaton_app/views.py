@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseNotFound
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm,FlashcardCreateOQForm, AssignFlashcardForm, AnswerFlashcardCreate
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -142,10 +143,9 @@ def flashcard_assign(request):
 
 @login_required
 def check_assigned_flashcards(request):
-    if request.method == 'GET':
-        result = AssignedFlashcard.objects.filter(user_id=request.user.id)
-        print(result)
-        return len(result) > 0
+    result = AssignedFlashcard.objects.filter(user_id=request.GET.get('userid'))
+    print(result)
+    return HttpResponse(result)
 
 
 Flashcard_ListView = FlashcardListView.as_view()
