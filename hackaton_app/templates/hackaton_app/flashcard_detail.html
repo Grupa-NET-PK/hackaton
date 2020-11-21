@@ -2,13 +2,15 @@
 {% block content %}
 
 <h1>{{ flash.question }}</h1>
+{% if flash.is_abcd %}
 <ul>
     <li>{{ flash.a }}</li>
     <li>{{ flash.b }}</li>
     <li>{{ flash.c }}</li>
     <li>{{ flash.d }}</li>
 </ul>
-<p>Poprawna {{ flash.correct_answer }}</p>
+{% endif %}
+<p>Poprawna: {{ flash.correct_answer }}</p>
 
 
 {% if flash_ans is not None %}
