@@ -190,7 +190,8 @@ class FlashcardDetailView(DetailView):
 class FlashcardUpdateView(UpdateView):
     model = Flashcard
     fields = ['question', 'a', 'b', 'c', 'd', 'abcd_answer', 'visibility']
-    template_name_suffix = '_update_your_flash'
+    template_name_suffix = '_update_form'
+    success_url = reverse_lazy('flashcard_show')
 
 
 class FlashcardDeleteView(DeleteView):
