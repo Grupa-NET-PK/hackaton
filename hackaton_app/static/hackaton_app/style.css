@@ -1,4 +1,56 @@
 /* Tutaj css strony */
-body {
-  background: #000 !important;
+body
+{
+    margin:0 px;
+}
+.top-menu
+{
+    background-color: rgb(146, 146, 146);
+}
+.main-header
+{
+    background: linear-gradient(270deg, #4b87ca, #0674ec);
+    color: white;
+}
+.main-section
+{
+    background-color: rgb(239, 241, 245);
+}
+.footer-big
+{
+    background-color: rgb(38, 43, 48);
+    color: #ababab;
+}
+.footer-mini
+{
+    background-color: rgb(25, 32, 39);
+    color: #ababab;
+}
+.link
+{
+    text-decoration: none;
+    color: white;
+}
+.link:hover
+{
+    text-decoration: none;
+    color: rgb(6, 116, 234);
+}
+.social-link
+{
+    text-decoration: none;
+    color: #ababab;
+}
+.social-link:hover
+{
+    text-decoration: none;
+    color: white;
+}
+.my-box-shadow
+{
+    box-shadow: 0 2px 4px rgba(108, 111, 115, 0.1);
+}
+.btn
+{
+    border-radius: 25px;
 }

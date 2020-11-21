@@ -2,22 +2,22 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-
-
-    <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Rejestracja</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Zarejestruj się</button>
-            </div>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Masz już konto? <a class="ml-2" href="{% url 'login' %}">Zaloguj się</a>
-            </small>
+<div class="row justify-content-md-center">
+    <div class="card col-lg-4 my-box-shadow">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="login__desc">
+                        Rejestracja
+                    </legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-primary" type="submit">Zarejestruj się</button>
+                </div>
+            </form>
         </div>
-
+    </div>
+</div>
 {% endblock content %}
