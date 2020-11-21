@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.http import HttpResponse, HttpResponseNotFound
+from django.template.loader import render_to_string
 from django.contrib import messages
 from django.urls import reverse_lazy
 
@@ -144,10 +146,10 @@ def flashcard_assign(request):
 
 @login_required
 def check_assigned_flashcards(request):
-    if request.method == 'GET':
-        result = AssignedFlashcard.objects.filter(user_id=request.user.id)
-        print(result)
-        return len(result) > 0
+    result = AssignedFlashcard.objects.filter(user_id=request.GET.get('userid'))
+
+    html = render_to_string('hackaton_app/assigned_flashcard.html', {'flash': result})    
+    return HttpResponse(html)
 
 
 
@@ -171,6 +173,17 @@ def flashcard_answer_create(request, pk):
 
     return render(request, 'hackaton_app/flashcard_answer_create.html', context)
 
+class FlashcardDetailView(DetailView):
+    model = Flashcard
+    template = 'hackaton_app/flashcard_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        akt_flashcard = get_object_or_404(Flashcard, id=self.kwargs['pk'])
+        answers = AnswerFlashcard.objects.filter(flash_card=akt_flashcard)
+        context['flash'] = akt_flashcard
+        context['flash_ans'] = answers
+        return context
 
 class FlashcardUpdateView(UpdateView):
     model = Flashcard
@@ -182,7 +195,8 @@ class FlashcardDeleteView(DeleteView):
     model = Flashcard
     success_url = reverse_lazy('home')
 
-
+    
 Flashcard_ListView = FlashcardListView.as_view()
 Flashcard_UpdateView = FlashcardUpdateView.as_view()
 Flashcard_DeleteView = FlashcardDeleteView.as_view()
+
