@@ -30,7 +30,7 @@ class ProfileUpdateForm(forms.ModelForm):
 class FlashcardCreateForm(forms.ModelForm):
     visibility = forms.BooleanField(label="Widoczność", required=False)
     question = forms.CharField(label='Jakie pytanie chcesz zadać ?', widget=forms.TextInput(attrs={'placeholder': 'Zadaj pytanie'}))
-    is_abcd = forms.BooleanField(label="ABCD", required=False)
+    is_abcd = forms.BooleanField(widget=forms.HiddenInput(),label="ABCD", required=False)
     a = forms.CharField(label='Opcja A', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje A'}), required=False)
     b = forms.CharField(label='Opcja B', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje B'}), required=False)
     c = forms.CharField(label='Opcja C', widget=forms.TextInput(attrs={'placeholder': 'Podaj opcje D'}), required=False)
@@ -39,7 +39,7 @@ class FlashcardCreateForm(forms.ModelForm):
 
     class Meta:
         model = Flashcard
-        fields = ['question', 'visibility', 'is_abcd', 'a', 'b', 'c', 'd', 'correct_answer']
+        fields = ['question', 'visibility', 'a', 'b', 'c', 'd', 'correct_answer']
 
 
 class AnswerFlashcardForm(forms.ModelForm):

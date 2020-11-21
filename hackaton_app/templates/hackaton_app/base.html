@@ -28,8 +28,8 @@
                     </ul>
                     <form class="form-inline">
                         {% if user.is_authenticated %}
-                            <a class="btn btn-outline-primary" href="{% url 'login' %}"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
-                            <a class="btn btn-outline-primary ml-2" href="{% url 'register' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Wyloguj się</a>
+                            <a class="btn btn-outline-primary" href="{% url 'profile' %}"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
+                            <a class="btn btn-outline-primary ml-2" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Wyloguj się</a>
                         {% else %}
                             <a class="btn btn-outline-primary" href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> Zaloguj się</a>
                             <a class="btn btn-outline-primary ml-2" href="{% url 'register' %}"><i class="fa fa-user-plus" aria-hidden="true"></i> Zarejestruj się</a>
