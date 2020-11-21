@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FlashcardCreateForm,FlashcardCreateOQForm, AssignFlashcardForm, AnswerFlashcardCreate
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .models import *
 
 
@@ -173,6 +173,7 @@ def flashcard_answer_create(request, pk):
 
     return render(request, 'hackaton_app/flashcard_answer_create.html', context)
 
+
 class FlashcardDetailView(DetailView):
     model = Flashcard
     template = 'hackaton_app/flashcard_detail.html'
@@ -184,6 +185,7 @@ class FlashcardDetailView(DetailView):
         context['flash'] = akt_flashcard
         context['flash_ans'] = answers
         return context
+
 
 class FlashcardUpdateView(UpdateView):
     model = Flashcard
