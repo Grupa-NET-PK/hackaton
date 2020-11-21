@@ -18,7 +18,15 @@
     </div>
 
 {% else %}
-    XD
+        <div class="jumbotron bg-white my-box-shadow border">
+      <h1 class="display-4">Witamy w fiszkownicy</h1>
+        <hr class="my-4">
+        <div class="display-6">
+            Twoje osobiste narzędzie sprawdzania koncentracji studentów,
+            uczniów oraz współmałżonków podczas pracy zdalnej</div>
+        <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">To ciekawe ! Moge założyć konto ?</a>
+    </div>
 {% endif %}
 
 {% endblock %}
