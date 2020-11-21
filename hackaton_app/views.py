@@ -9,7 +9,7 @@ from .models import *
 
 
 def home(request):
-    context = {'title': 'Strona Główna'}
+    context = {'title': 'Strona Główna', "user_id": request.user.id}
     return render(request, 'hackaton_app/home.html', context)
 
 
@@ -106,18 +106,25 @@ class AssignedFlashcardListView(LoginRequiredMixin, ListView):
 @login_required
 def flashcard_assign(request):
     if request.method == 'POST':
-        f_form = AssignFlashcardForm(request.POST)
+        f_form = AssignFlashcardForm(request.user.id, request.POST)
         if f_form.is_valid():
             instance = f_form.save(commit=False)
-            instance.user = request.user.profile
+            # instance.user = request.user.profile
             instance.save()
             messages.success(request, f'Przypisano fiszkę!')
-            return redirect('profile')
+            return redirect('assigned_flashcard_show')
     else:
-        f_form = AssignFlashcardForm()
+        f_form = AssignFlashcardForm(request.user.id)
 
     return render(request, 'hackaton_app/assign_flashcard.html', {'form': f_form})
 
+
+@login_required
+def check_assigned_flashcards(request):
+    if request.method == 'GET':
+        result = AssignedFlashcard.objects.filter(user_id=request.user.id)
+        print(result)
+        return len(result) > 0
 
 
 Flashcard_ListView = FlashcardListView.as_view()
