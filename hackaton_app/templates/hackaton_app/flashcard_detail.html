@@ -1,28 +1,34 @@
 {% extends 'hackaton_app/base.html' %}
 {% block content %}
 <div id="flashcard_anwsers" onload="runAnswersRefresh( '{{flash.id}}', '{% url 'check_answers' %}' )">
-    <h1>{{ flash.question }}</h1>
+    <div class="jumbotron bg-white my-box-shadow border">
+    <h1 class="display-4">{{ flash.question }}</h1>
+    <hr>
     {% if flash.is_abcd %}
     <p>Dostępne odpowiedzi:</p>
-    <ul>
-        <li>{{ flash.a }}</li>
-        <li>{{ flash.b }}</li>
-        <li>{{ flash.c }}</li>
-        <li>{{ flash.d }}</li>
+
+    <ul style="list-style: upper-alpha;">
+        <li class="p-1">{{ flash.a }}</li>
+        <li class="p-1">{{ flash.b }}</li>
+        <li class="p-1">{{ flash.c }}</li>
+        <li class="p-1">{{ flash.d }}</li>
     </ul>
+
+    <p>Poprawna: {{ flash.abcd_answer }}</p>
     {% else %}
         <p>Ta fiszka jest pytaniem otwartym</p>
+        <p>Poprawna: {{ flash.correct_answer }}</p>
     {% endif %}
-    <p>Poprawna: {{ flash.correct_answer }}</p>
+
 
     <div id="answers">
-        {% if flash_ans is not None %}
         <table class="table">
           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">Użytkownik</th>
               <th scope="col">Odpowiedź</th>
+<!--                <th scope="col">Poprawna</th>-->
             </tr>
           </thead>
           <tbody>
@@ -31,12 +37,22 @@
               <th scope="row">{{ item.id }}</th>
               <td>{{ item.user.user.first_name }} {{ item.user.user.last_name }}</td>
               <td>{{ item.answer }}</td>
+
+<!--                {% if flash.is_abcd %}-->
+<!--                    {% if item.answer == flash.abcd_answer %}-->
+<!--                    <td><span style="font-size: 30px; color: green;"><i class="fa fa-check" aria-hidden="true"></i></span></td>-->
+<!--                    {% else %}-->
+<!--                    <td><span style="font-size: 30px; color: red;"><i class="fa fa-times" aria-hidden="true"></i></span></td>-->
+<!--                    {% endif %}-->
+<!--                {% else %}-->
+<!--                <td>{{ item.correct_answer }}</td>-->
+<!--                {% endif %}-->
             </tr>
             {% endfor %}
             </tbody>
         </table>
-        {% endif %}
     </div>
+</div>
 </div>
 
 {% endblock %}
