@@ -1,21 +1,34 @@
 {% extends 'hackaton_app/base.html' %}
 {% block content %}
+{% if request.user.is_authenticated %}
+    <div class="jumbotron bg-white my-box-shadow border">
+      <h1 class="display-4">Tworzenie Fiszek</h1>
+        <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create_oquestion' %}" role="button">Pytanie Otwarte</a>
+      <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create' %}" role="button">ABCD</a>
+      <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="{% url 'assign_flashcard' %}" role="button">Przydziel fiszkę</a>
+    </div>
+    <div class="jumbotron bg-white my-box-shadow border">
+      <h1 class="display-4">Zobacz utworzone fiszki</h1>
+        <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="{% url 'flashcard_show' %}" role="button">Zobacz fiszki</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'assigned_flashcard_show' %}" role="button">Przydzielone fiszki</a>
+      <button onclick="check_assigned_flashcards({{ user_id }})" class="btn btn-secondary">Sprawdź przydzielone</button>
+    </div>
 
-<div class="jumbotron bg-white my-box-shadow border">
-  <h1 class="display-4">Tworzenie Fiszek</h1>
-    <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create_oquestion' %}" role="button">Pytanie Otwarte</a>
-  <a class="btn btn-primary btn-lg" href="{% url 'flashcard_create' %}" role="button">ABCD</a>
-  <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="{% url 'assign_flashcard' %}" role="button">Przydziel fiszkę</a>
-</div>
-<div class="jumbotron bg-white my-box-shadow border">
-  <h1 class="display-4">Zobacz utworzone fiszki</h1>
-    <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="{% url 'flashcard_show' %}" role="button">Zobacz fiszki</a>
-    <a class="btn btn-primary btn-lg" href="{% url 'assigned_flashcard_show' %}" role="button">Przydzielone fiszki</a>
-  <button onclick="check_assigned_flashcards({{ user_id }})" class="btn btn-secondary">Sprawdź przydzielone</button>
-</div>
+{% else %}
+        <div class="jumbotron bg-white my-box-shadow border">
+      <h1 class="display-4">Witamy w fiszkownicy</h1>
+        <hr class="my-4">
+        <div class="display-6">
+            Twoje osobiste narzędzie sprawdzania koncentracji studentów,
+            uczniów oraz współmałżonków podczas pracy zdalnej</div>
+        <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">To ciekawe ! Moge założyć konto ?</a>
+    </div>
+{% endif %}
+
 {% endblock %}
 {% block scripts %}
 <!--<script>-->

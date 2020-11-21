@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -66,6 +68,11 @@ class FlashcardCreateOQForm(forms.ModelForm):
         fields = ['question', 'correct_answer', 'visibility']
 
 
+class FlashcardForm(forms.ModelForm):
+    class Meta:
+        model = Flashcard
+        fields = ['question', 'a', 'b', 'c', 'd', 'abcd_answer', 'visibility']
+
 class AnswerFlashcardForm(forms.ModelForm):
     answer = forms.CharField(label='Twoja odpowiedz', widget=forms.TextInput(attrs={'placeholder': 'Podaj odpowiedz'}))
 
@@ -73,12 +80,12 @@ class AnswerFlashcardForm(forms.ModelForm):
 class AssignFlashcardForm(forms.ModelForm):
 
     def __init__(self, userid, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(AssignFlashcardForm, self).__init__(*args, **kwargs)
         self.fields['flash_card'].queryset = Flashcard.objects.filter(user_id=userid)
 
     class Meta:
         model = AssignedFlashcard
-        fields = ['user', 'flash_card']
+        fields = ['user', 'flash_card', 'expiration_date']
 
 
 class AnswerFlashcardCreate(forms.ModelForm):

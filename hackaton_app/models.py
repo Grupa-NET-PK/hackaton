@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -69,7 +71,7 @@ class AnswerFlashcard(models.Model):
 class AssignedFlashcard(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, default=0)
     flash_card = models.ForeignKey(Flashcard, on_delete=models.CASCADE, default=0)
-    expiration_date = models.DateTimeField(auto_now=True)
+    expiration_date = models.DateTimeField(default=datetime.datetime.now())
 
     def __str__(self):
         return str(self.user) + " - " + self.flash_card.question
